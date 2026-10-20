@@ -116,6 +116,10 @@ output/
 
 ## 🚀 Quick Start
 
+<div align="center">
+<img src="./assets/setup-guide.svg" alt="Setup Guide" width="90%"/>
+</div>
+
 ### 1️⃣ Install Farzi
 
 ```bash
