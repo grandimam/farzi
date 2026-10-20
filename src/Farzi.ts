@@ -7,11 +7,18 @@ import { CompleteExtractor } from './extraction/CompleteExtractor';
 import { ProjectGenerator } from './generation/ProjectGenerator';
 import { PixelDiffValidator } from './validation/PixelDiffValidator';
 import { BehaviorValidator } from './validation/BehaviorValidator';
+import { DesignTokenExtractor } from './extraction/DesignTokenExtractor';
+import { ComponentGenerator } from './generation/ComponentGenerator';
+import { PixelColorExtractor } from './analysis/PixelColorExtractor';
+import { SpacingDetector } from './analysis/SpacingDetector';
+import { DOMStyleCapture } from './capture/DOMStyleCapture';
+import { VisionAnalyzer } from './analysis/VisionAnalyzer';
 import type {
   ReplicationOptions,
   ExtractionResult,
   ValidationReport,
-  CaptureSet
+  CaptureSet,
+  DesignTokens
 } from './types';
 import type { CompleteAnalysis } from './extraction/CompleteExtractor';
 
@@ -21,6 +28,8 @@ export class Farzi {
   private projectGenerator: ProjectGenerator;
   private pixelValidator: PixelDiffValidator;
   private behaviorValidator: BehaviorValidator;
+  private tokenExtractor: DesignTokenExtractor;
+  private componentGenerator: ComponentGenerator;
 
   constructor(apiKey?: string) {
     this.capture = new MultiZoomCapture();
@@ -28,6 +37,19 @@ export class Farzi {
     this.projectGenerator = new ProjectGenerator();
     this.pixelValidator = new PixelDiffValidator();
     this.behaviorValidator = new BehaviorValidator();
+
+    // For single component extraction
+    const pixelAnalyzer = new PixelColorExtractor();
+    const spacingDetector = new SpacingDetector();
+    const domCapture = new DOMStyleCapture();
+    const visionAnalyzer = apiKey ? new VisionAnalyzer(apiKey) : undefined;
+    this.tokenExtractor = new DesignTokenExtractor(
+      pixelAnalyzer,
+      spacingDetector,
+      domCapture,
+      visionAnalyzer
+    );
+    this.componentGenerator = new ComponentGenerator();
   }
 
   /**
