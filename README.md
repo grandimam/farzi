@@ -2,7 +2,9 @@
 
 **Replicate any application with pixel-perfect accuracy using vision-based analysis.**
 
-Farzi uses screenshots and AI vision to extract exact design systems and rebuild applications without guessing. No CSS parsing approximations—just what's actually rendered.
+Farzi is a standalone tool that uses screenshots and AI vision to extract exact design systems and rebuild applications without guessing. No CSS parsing approximations—just what's actually rendered.
+
+**Note:** Farzi is completely independent. For reverse engineering and understanding how apps work, see [REA](https://github.com/morluto/rea). For building pixel-perfect replicas, use Farzi.
 
 ---
 
