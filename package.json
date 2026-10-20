@@ -27,10 +27,14 @@
   "license": "MIT",
   "dependencies": {
     "@anthropic-ai/sdk": "^0.32.1",
+    "@babel/parser": "^7.24.0",
+    "@babel/traverse": "^7.24.0",
+    "@babel/types": "^7.24.0",
     "playwright": "^1.49.1",
     "jimp": "^0.22.12",
     "commander": "^12.1.0",
-    "sharp": "^0.33.5"
+    "sharp": "^0.33.5",
+    "acorn": "^8.11.0"
   },
   "devDependencies": {
     "@types/node": "^22.10.2",
