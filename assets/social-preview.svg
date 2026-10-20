@@ -1,0 +1,173 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Background gradient -->
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#667EEA;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#5E6AD2;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#764BA2;stop-opacity:1" />
+    </linearGradient>
+
+    <!-- Glow effect -->
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- Pattern for background -->
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <circle cx="20" cy="20" r="1" fill="white" opacity="0.1"/>
+    </pattern>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bgGradient)"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+
+  <!-- Main content container -->
+  <g transform="translate(100, 120)">
+    <!-- Logo -->
+    <g transform="translate(0, 0)">
+      <circle cx="60" cy="60" r="55" fill="white" opacity="0.15"/>
+      <circle cx="60" cy="60" r="50" fill="none" stroke="white" stroke-width="3"/>
+
+      <!-- Replication icon -->
+      <rect x="35" y="40" width="30" height="30" rx="2" fill="none" stroke="white" stroke-width="2.5"/>
+      <line x1="42" y1="50" x2="58" y2="50" stroke="white" stroke-width="2"/>
+      <line x1="42" y1="57" x2="52" y2="57" stroke="white" stroke-width="2"/>
+
+      <rect x="70" y="55" width="30" height="30" rx="2" fill="rgba(255,255,255,0.3)" stroke="white" stroke-width="2.5"/>
+      <line x1="77" y1="65" x2="93" y2="65" stroke="white" stroke-width="2"/>
+      <line x1="77" y1="72" x2="87" y2="72" stroke="white" stroke-width="2"/>
+
+      <path d="M 73 58 L 65 50 L 60 55" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+
+    <!-- Title -->
+    <text x="150" y="50" font-family="Arial, sans-serif" font-size="72" font-weight="bold" fill="white" filter="url(#glow)">
+      FARZI
+    </text>
+
+    <text x="150" y="95" font-family="Arial, sans-serif" font-size="28" font-weight="300" fill="white" opacity="0.95">
+      Pixel-Perfect Application Replication
+    </text>
+
+    <!-- Subtitle in Urdu/Hindi -->
+    <text x="150" y="125" font-family="Arial, sans-serif" font-size="18" fill="white" opacity="0.7">
+      فرضی • फ़र्ज़ी • "replica"
+    </text>
+  </g>
+
+  <!-- Features grid -->
+  <g transform="translate(100, 320)">
+    <!-- Feature 1 -->
+    <g>
+      <circle cx="20" cy="20" r="18" fill="white" opacity="0.2"/>
+      <text x="20" y="27" font-size="24" text-anchor="middle">🔍</text>
+      <text x="50" y="18" font-family="Arial, sans-serif" font-size="16" font-weight="600" fill="white">
+        Behavior Analysis
+      </text>
+      <text x="50" y="36" font-family="Arial, sans-serif" font-size="13" fill="white" opacity="0.8">
+        JavaScript • State • APIs
+      </text>
+    </g>
+
+    <!-- Feature 2 -->
+    <g transform="translate(280, 0)">
+      <circle cx="20" cy="20" r="18" fill="white" opacity="0.2"/>
+      <text x="20" y="27" font-size="24" text-anchor="middle">🎨</text>
+      <text x="50" y="18" font-family="Arial, sans-serif" font-size="16" font-weight="600" fill="white">
+        Design Extraction
+      </text>
+      <text x="50" y="36" font-family="Arial, sans-serif" font-size="13" fill="white" opacity="0.8">
+        Pixel Perfect • DOM Styles
+      </text>
+    </g>
+
+    <!-- Feature 3 -->
+    <g transform="translate(560, 0)">
+      <circle cx="20" cy="20" r="18" fill="white" opacity="0.2"/>
+      <text x="20" y="27" font-size="24" text-anchor="middle">⚡</text>
+      <text x="50" y="18" font-family="Arial, sans-serif" font-size="16" font-weight="600" fill="white">
+        Code Generation
+      </text>
+      <text x="50" y="36" font-family="Arial, sans-serif" font-size="13" fill="white" opacity="0.8">
+        React • Vue • Svelte
+      </text>
+    </g>
+
+    <!-- Feature 4 -->
+    <g transform="translate(840, 0)">
+      <circle cx="20" cy="20" r="18" fill="white" opacity="0.2"/>
+      <text x="20" y="27" font-size="24" text-anchor="middle">✅</text>
+      <text x="50" y="18" font-family="Arial, sans-serif" font-size="16" font-weight="600" fill="white">
+        Validation
+      </text>
+      <text x="50" y="36" font-family="Arial, sans-serif" font-size="13" fill="white" opacity="0.8">
+        99.5%+ Accuracy
+      </text>
+    </g>
+  </g>
+
+  <!-- Code sample -->
+  <g transform="translate(100, 420)">
+    <rect width="1000" height="130" rx="8" fill="rgba(0,0,0,0.3)" stroke="white" stroke-width="1" opacity="0.8"/>
+
+    <!-- Terminal dots -->
+    <circle cx="20" cy="20" r="5" fill="#FF5F56"/>
+    <circle cx="40" cy="20" r="5" fill="#FFBD2E"/>
+    <circle cx="60" cy="20" r="5" fill="#27C93F"/>
+
+    <text x="20" y="55" font-family="monospace" font-size="16" fill="#68D391">
+      👤 Clone https://linear.app to ./my-clone
+    </text>
+
+    <text x="20" y="80" font-family="monospace" font-size="14" fill="white" opacity="0.9">
+      🤖 Analyzing... Framework: React • State: Redux • Components: 47
+    </text>
+
+    <text x="20" y="105" font-family="monospace" font-size="14" fill="#48BB78">
+      ✨ Complete! Similarity: 99.7% • Behavior: PASSED
+    </text>
+  </g>
+
+  <!-- Bottom banner -->
+  <g transform="translate(0, 580)">
+    <rect width="1200" height="50" fill="rgba(0,0,0,0.2)"/>
+
+    <text x="100" y="32" font-family="Arial, sans-serif" font-size="16" font-weight="600" fill="white">
+      MCP Server for Claude
+    </text>
+
+    <text x="900" y="32" font-family="Arial, sans-serif" font-size="16" fill="white" opacity="0.9" text-anchor="end">
+      github.com/grandimam/farzi
+    </text>
+  </g>
+
+  <!-- Badges -->
+  <g transform="translate(350, 580)">
+    <!-- MIT License -->
+    <rect width="100" height="24" rx="12" fill="rgba(255,255,255,0.2)"/>
+    <text x="50" y="16" font-family="Arial, sans-serif" font-size="12" font-weight="600" fill="white" text-anchor="middle">
+      MIT License
+    </text>
+
+    <!-- TypeScript -->
+    <g transform="translate(110, 0)">
+      <rect width="100" height="24" rx="12" fill="rgba(255,255,255,0.2)"/>
+      <text x="50" y="16" font-family="Arial, sans-serif" font-size="12" font-weight="600" fill="white" text-anchor="middle">
+        TypeScript
+      </text>
+    </g>
+
+    <!-- Node 18+ -->
+    <g transform="translate(220, 0)">
+      <rect width="90" height="24" rx="12" fill="rgba(255,255,255,0.2)"/>
+      <text x="45" y="16" font-family="Arial, sans-serif" font-size="12" font-weight="600" fill="white" text-anchor="middle">
+        Node 18+
+      </text>
+    </g>
+  </g>
+</svg>

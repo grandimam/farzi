@@ -1,0 +1,140 @@
+<svg width="1200" height="300" viewBox="0 0 1200 300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Gradient for background -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#F6F9FC;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#E3E8EE;stop-opacity:1" />
+    </linearGradient>
+
+    <!-- Glow effect -->
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="300" fill="url(#bgGrad)"/>
+
+  <!-- Step 1: Capture -->
+  <g transform="translate(50, 80)">
+    <!-- Icon background -->
+    <circle cx="50" cy="50" r="45" fill="#5E6AD2" opacity="0.1"/>
+    <circle cx="50" cy="50" r="40" fill="none" stroke="#5E6AD2" stroke-width="2"/>
+
+    <!-- Camera icon -->
+    <rect x="35" y="40" width="30" height="20" rx="2" fill="none" stroke="#5E6AD2" stroke-width="2.5"/>
+    <circle cx="50" cy="50" r="6" fill="#5E6AD2"/>
+    <circle cx="42" cy="43" r="2" fill="#5E6AD2"/>
+
+    <!-- Label -->
+    <text x="50" y="120" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#5E6AD2">CAPTURE</text>
+    <text x="50" y="138" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#89A5C1">Multi-DPI</text>
+    <text x="50" y="152" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#89A5C1">DOM + Behavior</text>
+  </g>
+
+  <!-- Arrow 1 -->
+  <g transform="translate(150, 125)">
+    <line x1="0" y1="0" x2="80" y2="0" stroke="#5E6AD2" stroke-width="2" opacity="0.4"/>
+    <polygon points="80,0 70,-5 70,5" fill="#5E6AD2" opacity="0.4"/>
+  </g>
+
+  <!-- Step 2: Analyze -->
+  <g transform="translate(280, 80)">
+    <!-- Icon background -->
+    <circle cx="50" cy="50" r="45" fill="#5E6AD2" opacity="0.1"/>
+    <circle cx="50" cy="50" r="40" fill="none" stroke="#5E6AD2" stroke-width="2"/>
+
+    <!-- Magnifying glass icon -->
+    <circle cx="45" cy="45" r="12" fill="none" stroke="#5E6AD2" stroke-width="2.5"/>
+    <line x1="54" y1="54" x2="62" y2="62" stroke="#5E6AD2" stroke-width="2.5" stroke-linecap="round"/>
+
+    <!-- Code brackets -->
+    <text x="35" y="35" font-family="monospace" font-size="14" fill="#5E6AD2" opacity="0.6">&lt;/&gt;</text>
+
+    <!-- Label -->
+    <text x="50" y="120" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#5E6AD2">ANALYZE</text>
+    <text x="50" y="138" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#89A5C1">JavaScript</text>
+    <text x="50" y="152" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#89A5C1">Pixels + Design</text>
+  </g>
+
+  <!-- Arrow 2 -->
+  <g transform="translate(380, 125)">
+    <line x1="0" y1="0" x2="80" y2="0" stroke="#5E6AD2" stroke-width="2" opacity="0.4"/>
+    <polygon points="80,0 70,-5 70,5" fill="#5E6AD2" opacity="0.4"/>
+  </g>
+
+  <!-- Step 3: Extract -->
+  <g transform="translate(510, 80)">
+    <!-- Icon background -->
+    <circle cx="50" cy="50" r="45" fill="#5E6AD2" opacity="0.1"/>
+    <circle cx="50" cy="50" r="40" fill="none" stroke="#5E6AD2" stroke-width="2"/>
+
+    <!-- Extract icon (database with arrow) -->
+    <ellipse cx="50" cy="45" rx="15" ry="6" fill="none" stroke="#5E6AD2" stroke-width="2"/>
+    <line x1="35" y1="45" x2="35" y2="55" stroke="#5E6AD2" stroke-width="2"/>
+    <line x1="65" y1="45" x2="65" y2="55" stroke="#5E6AD2" stroke-width="2"/>
+    <ellipse cx="50" cy="55" rx="15" ry="6" fill="none" stroke="#5E6AD2" stroke-width="2"/>
+    <path d="M 50 60 L 50 45" stroke="#5E6AD2" stroke-width="2" opacity="0.3"/>
+
+    <!-- Label -->
+    <text x="50" y="120" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#5E6AD2">EXTRACT</text>
+    <text x="50" y="138" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#89A5C1">Design Tokens</text>
+    <text x="50" y="152" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#89A5C1">State Patterns</text>
+  </g>
+
+  <!-- Arrow 3 -->
+  <g transform="translate(610, 125)">
+    <line x1="0" y1="0" x2="80" y2="0" stroke="#5E6AD2" stroke-width="2" opacity="0.4"/>
+    <polygon points="80,0 70,-5 70,5" fill="#5E6AD2" opacity="0.4"/>
+  </g>
+
+  <!-- Step 4: Generate -->
+  <g transform="translate(740, 80)">
+    <!-- Icon background -->
+    <circle cx="50" cy="50" r="45" fill="#5E6AD2" opacity="0.1"/>
+    <circle cx="50" cy="50" r="40" fill="none" stroke="#5E6AD2" stroke-width="2"/>
+
+    <!-- Code icon -->
+    <path d="M 38 40 L 45 50 L 38 60" fill="none" stroke="#5E6AD2" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M 62 40 L 55 50 L 62 60" fill="none" stroke="#5E6AD2" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <line x1="52" y1="38" x2="48" y2="62" stroke="#5E6AD2" stroke-width="2.5" stroke-linecap="round"/>
+
+    <!-- Label -->
+    <text x="50" y="120" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#5E6AD2">GENERATE</text>
+    <text x="50" y="138" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#89A5C1">Components</text>
+    <text x="50" y="152" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#89A5C1">Full Project</text>
+  </g>
+
+  <!-- Arrow 4 -->
+  <g transform="translate(840, 125)">
+    <line x1="0" y1="0" x2="80" y2="0" stroke="#5E6AD2" stroke-width="2" opacity="0.4"/>
+    <polygon points="80,0 70,-5 70,5" fill="#5E6AD2" opacity="0.4"/>
+  </g>
+
+  <!-- Step 5: Validate -->
+  <g transform="translate(970, 80)">
+    <!-- Icon background -->
+    <circle cx="50" cy="50" r="45" fill="#5E6AD2" opacity="0.1"/>
+    <circle cx="50" cy="50" r="40" fill="none" stroke="#5E6AD2" stroke-width="2"/>
+
+    <!-- Checkmark icon -->
+    <path d="M 40 50 L 47 57 L 62 42" fill="none" stroke="#5E6AD2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" filter="url(#glow)"/>
+
+    <!-- Label -->
+    <text x="50" y="120" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#5E6AD2">VALIDATE</text>
+    <text x="50" y="138" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#89A5C1">99.5%+ Match</text>
+    <text x="50" y="152" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#89A5C1">Behavior Tests</text>
+  </g>
+
+  <!-- Bottom decorative line -->
+  <line x1="50" y1="260" x2="1150" y2="260" stroke="#5E6AD2" stroke-width="1" opacity="0.2"/>
+
+  <!-- Title at bottom -->
+  <text x="600" y="285" font-family="Arial, sans-serif" font-size="14" font-weight="500" text-anchor="middle" fill="#5E6AD2" opacity="0.6">
+    Complete Pixel-Perfect Replication Pipeline
+  </text>
+</svg>

@@ -1,0 +1,154 @@
+<svg width="800" height="600" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="screenGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#2D3748;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1A202C;stop-opacity:1" />
+    </linearGradient>
+
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="600" fill="#F7FAFC"/>
+
+  <!-- Terminal/Editor Window -->
+  <g transform="translate(50, 50)" filter="url(#shadow)">
+    <!-- Window -->
+    <rect width="700" height="500" rx="8" fill="url(#screenGrad)"/>
+
+    <!-- Window controls -->
+    <circle cx="20" cy="20" r="6" fill="#FF5F56"/>
+    <circle cx="40" cy="20" r="6" fill="#FFBD2E"/>
+    <circle cx="60" cy="20" r="6" fill="#27C93F"/>
+
+    <!-- Title bar -->
+    <text x="350" y="25" font-family="monospace" font-size="12" fill="#A0AEC0" text-anchor="middle">
+      my-replica/
+    </text>
+
+    <!-- File tree -->
+    <g transform="translate(20, 60)">
+      <!-- Folders -->
+      <text x="0" y="20" font-family="monospace" font-size="13" fill="#63B3ED">📦 src/</text>
+
+      <text x="20" y="45" font-family="monospace" font-size="12" fill="#68D391">📁 components/</text>
+      <text x="40" y="65" font-family="monospace" font-size="11" fill="#A0AEC0">  Button.tsx</text>
+      <text x="40" y="82" font-family="monospace" font-size="11" fill="#A0AEC0">  Card.tsx</text>
+      <text x="40" y="99" font-family="monospace" font-size="11" fill="#A0AEC0">  Input.tsx</text>
+
+      <text x="20" y="125" font-family="monospace" font-size="12" fill="#68D391">📁 design-system/</text>
+      <text x="40" y="145" font-family="monospace" font-size="11" fill="#68D391">  📁 tokens/</text>
+      <text x="60" y="162" font-family="monospace" font-size="11" fill="#A0AEC0">    colors.ts</text>
+      <text x="60" y="179" font-family="monospace" font-size="11" fill="#A0AEC0">    spacing.ts</text>
+      <text x="60" y="196" font-family="monospace" font-size="11" fill="#A0AEC0">    typography.ts</text>
+
+      <text x="20" y="222" font-family="monospace" font-size="12" fill="#68D391">📁 store/</text>
+      <text x="40" y="242" font-family="monospace" font-size="11" fill="#A0AEC0">  index.ts</text>
+      <text x="40" y="259" font-family="monospace" font-size="11" fill="#A0AEC0">  itemsSlice.ts</text>
+
+      <text x="20" y="285" font-family="monospace" font-size="12" fill="#68D391">📁 api/</text>
+      <text x="40" y="305" font-family="monospace" font-size="11" fill="#A0AEC0">  rest.ts</text>
+      <text x="40" y="322" font-family="monospace" font-size="11" fill="#A0AEC0">  graphql.ts</text>
+
+      <text x="20" y="348" font-family="monospace" font-size="12" fill="#68D391">📁 pages/</text>
+      <text x="40" y="368" font-family="monospace" font-size="11" fill="#A0AEC0">  Dashboard.tsx</text>
+
+      <text x="0" y="400" font-family="monospace" font-size="13" fill="#FBD38D">⚙️  package.json</text>
+      <text x="0" y="420" font-family="monospace" font-size="13" fill="#FBD38D">🎨 tailwind.config.js</text>
+      <text x="0" y="440" font-family="monospace" font-size="13" fill="#FBD38D">📘 tsconfig.json</text>
+    </g>
+
+    <!-- Code preview on right -->
+    <g transform="translate(320, 60)">
+      <!-- Header -->
+      <text x="0" y="0" font-family="monospace" font-size="11" fill="#68D391">// colors.ts</text>
+
+      <!-- Code -->
+      <text x="0" y="25" font-family="monospace" font-size="10" fill="#CBD5E0">export const colors = {</text>
+
+      <text x="10" y="45" font-family="monospace" font-size="10" fill="#F687B3">  primary</text>
+      <text x="75" y="45" font-family="monospace" font-size="10" fill="#CBD5E0">: {</text>
+
+      <text x="20" y="65" font-family="monospace" font-size="10" fill="#F687B3">    500</text>
+      <text x="55" y="65" font-family="monospace" font-size="10" fill="#CBD5E0">:</text>
+      <text x="70" y="65" font-family="monospace" font-size="10" fill="#F6AD55">'#5E6AD2'</text>
+      <text x="135" y="65" font-family="monospace" font-size="10" fill="#CBD5E0">,</text>
+
+      <text x="20" y="82" font-family="monospace" font-size="10" fill="#F687B3">    600</text>
+      <text x="55" y="82" font-family="monospace" font-size="10" fill="#CBD5E0">:</text>
+      <text x="70" y="82" font-family="monospace" font-size="10" fill="#F6AD55">'#4C5FD5'</text>
+
+      <text x="10" y="99" font-family="monospace" font-size="10" fill="#CBD5E0">  },</text>
+
+      <text x="10" y="119" font-family="monospace" font-size="10" fill="#F687B3">  neutral</text>
+      <text x="75" y="119" font-family="monospace" font-size="10" fill="#CBD5E0">: {</text>
+
+      <text x="20" y="136" font-family="monospace" font-size="10" fill="#F687B3">    100</text>
+      <text x="55" y="136" font-family="monospace" font-size="10" fill="#CBD5E0">:</text>
+      <text x="70" y="136" font-family="monospace" font-size="10" fill="#F6AD55">'#F2F5F7'</text>
+      <text x="135" y="136" font-family="monospace" font-size="10" fill="#CBD5E0">,</text>
+
+      <text x="20" y="153" font-family="monospace" font-size="10" fill="#F687B3">    900</text>
+      <text x="55" y="153" font-family="monospace" font-size="10" fill="#CBD5E0">:</text>
+      <text x="70" y="153" font-family="monospace" font-size="10" fill="#F6AD55">'#17191C'</text>
+
+      <text x="10" y="170" font-family="monospace" font-size="10" fill="#CBD5E0">  }</text>
+
+      <text x="0" y="187" font-family="monospace" font-size="10" fill="#CBD5E0">};</text>
+
+      <!-- Comment -->
+      <text x="0" y="220" font-family="monospace" font-size="9" fill="#68D391">// ✅ Exact colors from pixel scan</text>
+
+      <!-- Stats box -->
+      <rect x="0" y="250" width="340" height="180" rx="6" fill="#2D3748" stroke="#4A5568" stroke-width="1"/>
+
+      <text x="170" y="275" font-family="monospace" font-size="12" font-weight="bold" fill="#68D391" text-anchor="middle">
+        Validation Results
+      </text>
+
+      <text x="20" y="305" font-family="monospace" font-size="11" fill="#A0AEC0">
+        ✅ Visual similarity:
+      </text>
+      <text x="280" y="305" font-family="monospace" font-size="11" font-weight="bold" fill="#68D391" text-anchor="end">
+        99.7%
+      </text>
+
+      <text x="20" y="330" font-family="monospace" font-size="11" fill="#A0AEC0">
+        ✅ Color accuracy:
+      </text>
+      <text x="280" y="330" font-family="monospace" font-size="11" font-weight="bold" fill="#68D391" text-anchor="end">
+        100%
+      </text>
+
+      <text x="20" y="355" font-family="monospace" font-size="11" fill="#A0AEC0">
+        ✅ Spacing accuracy:
+      </text>
+      <text x="280" y="355" font-family="monospace" font-size="11" font-weight="bold" fill="#68D391" text-anchor="end">
+        100%
+      </text>
+
+      <text x="20" y="380" font-family="monospace" font-size="11" fill="#A0AEC0">
+        ✅ Behavior tests:
+      </text>
+      <text x="280" y="380" font-family="monospace" font-size="11" font-weight="bold" fill="#68D391" text-anchor="end">
+        PASSED
+      </text>
+
+      <line x1="10" y1="395" x2="330" y2="395" stroke="#4A5568" stroke-width="1"/>
+
+      <text x="170" y="415" font-family="monospace" font-size="10" font-weight="bold" fill="#48BB78" text-anchor="middle">
+        ✨ COMPLETE VALIDATION PASSED!
+      </text>
+    </g>
+  </g>
+
+  <!-- Bottom badge -->
+  <g transform="translate(200, 565)">
+    <rect width="400" height="30" rx="15" fill="#5E6AD2" opacity="0.1"/>
+    <text x="200" y="20" font-family="Arial, sans-serif" font-size="13" font-weight="600" text-anchor="middle" fill="#5E6AD2">
+      Production-ready code in seconds ⚡
+    </text>
+  </g>
+</svg>
