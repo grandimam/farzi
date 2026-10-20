@@ -3,6 +3,7 @@
  */
 
 import { MultiZoomCapture } from './capture/MultiZoomCapture';
+import { DOMStyleCapture } from './capture/DOMStyleCapture';
 import { PixelColorExtractor } from './analysis/PixelColorExtractor';
 import { VisionAnalyzer } from './analysis/VisionAnalyzer';
 import { SpacingDetector } from './analysis/SpacingDetector';
@@ -19,8 +20,9 @@ import type {
 
 export class Farzi {
   private capture: MultiZoomCapture;
+  private domCapture: DOMStyleCapture;
   private pixelAnalyzer: PixelColorExtractor;
-  private visionAnalyzer: VisionAnalyzer;
+  private visionAnalyzer?: VisionAnalyzer;
   private spacingDetector: SpacingDetector;
   private tokenExtractor: DesignTokenExtractor;
   private componentGenerator: ComponentGenerator;
@@ -28,13 +30,16 @@ export class Farzi {
 
   constructor(apiKey?: string) {
     this.capture = new MultiZoomCapture();
+    this.domCapture = new DOMStyleCapture();
     this.pixelAnalyzer = new PixelColorExtractor();
-    this.visionAnalyzer = new VisionAnalyzer(apiKey);
+    // Vision is OPTIONAL - Farzi works without it
+    this.visionAnalyzer = apiKey ? new VisionAnalyzer(apiKey) : undefined;
     this.spacingDetector = new SpacingDetector();
     this.tokenExtractor = new DesignTokenExtractor(
       this.pixelAnalyzer,
-      this.visionAnalyzer,
-      this.spacingDetector
+      this.spacingDetector,
+      this.domCapture,
+      this.visionAnalyzer
     );
     this.componentGenerator = new ComponentGenerator();
     this.validator = new PixelDiffValidator();
