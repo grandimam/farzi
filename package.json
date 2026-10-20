@@ -1,20 +1,24 @@
 {
   "name": "farzi",
   "version": "0.1.0",
-  "description": "Pixel-perfect application replication using vision-based analysis",
+  "description": "MCP server for pixel-perfect application replication",
+  "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "bin": {
-    "farzi": "dist/cli.js"
+    "farzi": "dist/mcp-server.js"
   },
   "scripts": {
     "build": "tsc",
     "dev": "tsc --watch",
+    "start": "node dist/mcp-server.js",
     "test": "jest",
     "lint": "eslint src/**/*.ts",
     "format": "prettier --write src/**/*.ts"
   },
   "keywords": [
+    "mcp",
+    "mcp-server",
     "replication",
     "reverse-engineering",
     "design-system",
@@ -26,13 +30,13 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.4",
     "@anthropic-ai/sdk": "^0.32.1",
     "@babel/parser": "^7.24.0",
     "@babel/traverse": "^7.24.0",
     "@babel/types": "^7.24.0",
     "playwright": "^1.49.1",
     "jimp": "^0.22.12",
-    "commander": "^12.1.0",
     "sharp": "^0.33.5",
     "acorn": "^8.11.0"
   },

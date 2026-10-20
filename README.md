@@ -1,8 +1,8 @@
 # Farzi
 
-**Complete application replication: Understand how it works, replicate how it looks.**
+**MCP Server for pixel-perfect application replication**
 
-Farzi combines deep behavioral analysis with pixel-perfect visual replication to build exact copies of any application.
+Farzi is a Model Context Protocol (MCP) server that gives Claude the ability to replicate any web application with pixel-perfect accuracy, understanding both behavior and design.
 
 ---
 
@@ -10,317 +10,203 @@ Farzi combines deep behavioral analysis with pixel-perfect visual replication to
 
 **Farzi** (فرضی / फ़र्ज़ी) means "replica" in Urdu/Hindi.
 
-It's a complete replication tool that:
-1. **Understands** how the app works (behavior, logic, algorithms)
-2. **Analyzes** what it looks like (design, colors, spacing)
-3. **Generates** pixel-perfect working code
-
-Not just a clone. Not just reverse engineering. **Complete replication.**
+It's an MCP server that enables Claude to:
+1. **Analyze** how applications work (JavaScript, state, APIs, interactions)
+2. **Extract** design systems (colors, spacing, typography, components)
+3. **Generate** production-ready code (React, Vue, Svelte)
+4. **Validate** replicas for pixel-perfect accuracy
 
 ---
 
-## Complete Replication Workflow
+## Quick Start
+
+### 1. Install
 
 ```bash
-farzi replicate https://linear.app --output ./linear-clone
+git clone https://github.com/grandimam/farzi.git
+cd farzi
+npm install
+npm run build
 ```
 
-**What Farzi does:**
+### 2. Configure Claude Desktop
 
-### 1. Behavioral Analysis
-- Inspects JavaScript modules and dependencies
-- Traces function calls and event handlers
-- Analyzes state management patterns
-- Captures network requests and API calls
-- Documents interaction flows
+Add to `~/Library/Application Support/Claude/claude_desktop_config.json` (macOS) or `%APPDATA%\Claude\claude_desktop_config.json` (Windows):
 
-### 2. Visual Analysis
-- Screenshots at 1x, 2x, 4x DPI
-- Scans pixels for exact colors
-- Extracts computed styles from DOM
-- Measures spacing from whitespace
-- Identifies component patterns
-
-### 3. Code Generation
-- React/Vue/Svelte components
-- Design system tokens
-- State management setup
-- API integration layer
-- Production-ready structure
-
-### 4. Validation
-- Behavioral testing (interactions work)
-- Visual validation (99.5%+ similarity)
-- Pixel-diff comparison
-- Iterative refinement
-
-**Result: A working replica that looks AND behaves like the original.**
-
----
-
-## Architecture
-
-```
-┌─────────────────────────────────────────────────────────┐
-│                        FARZI                            │
-│              Complete Application Replicator            │
-└─────────────────────────────────────────────────────────┘
-                          │
-          ┌───────────────┴───────────────┐
-          ▼                               ▼
-    ┌──────────┐                   ┌──────────┐
-    │ BEHAVIOR │                   │  VISUAL  │
-    │ ANALYSIS │                   │ ANALYSIS │
-    └──────────┘                   └──────────┘
-          │                               │
-          ├─ JavaScript/modules           ├─ Screenshots (multi-DPI)
-          ├─ Function tracing             ├─ Pixel scanning
-          ├─ Event handlers               ├─ DOM computed styles
-          ├─ State management             ├─ Whitespace analysis
-          ├─ Network/API calls            ├─ Component detection
-          └─ Interaction flows            └─ Design tokens
-                          │
-                          ▼
-                ┌─────────────────┐
-                │  UNDERSTANDING  │
-                │  How + What     │
-                └─────────────────┘
-                          │
-                          ▼
-                ┌─────────────────┐
-                │   GENERATION    │
-                │  Complete Code  │
-                └─────────────────┘
-                          │
-                          ▼
-                ┌─────────────────┐
-                │   VALIDATION    │
-                │  Works + Looks  │
-                └─────────────────┘
-```
-
----
-
-## Features
-
-### 🧠 Behavioral Understanding
-
-**JavaScript & Module Analysis:**
-```typescript
-// Farzi analyzes
-import { analyzeJavaScript } from 'farzi';
-
-const analysis = await farzi.analyzeBehavior('https://app.com');
-// Returns:
-// - Module dependency graph
-// - Function call traces
-// - Event handler mappings
-// - State management patterns
-// - API endpoint inventory
-```
-
-**What You Get:**
-- How components communicate
-- What state management is used
-- How data flows
-- What APIs are called
-- How interactions work
-
-### 🎨 Visual Perfection
-
-**Design Token Extraction:**
-```typescript
-const tokens = await farzi.analyzeVisual('https://app.com');
-// Returns EXACT values:
+```json
 {
-  colors: {
-    primary: '#5E6AD2',      // Scanned from 12,847 pixels
-    background: '#F2F5F7'    // Measured exactly
-  },
-  spacing: {
-    baseUnit: 4,
-    scale: [4, 8, 12, 16, 24, 32, 48, 64]  // Detected
-  },
-  typography: {
-    family: 'Inter',
-    sizes: [12, 14, 16, 18, 20, 24]
+  "mcpServers": {
+    "farzi": {
+      "command": "node",
+      "args": ["/absolute/path/to/farzi/dist/mcp-server.js"],
+      "env": {
+        "ANTHROPIC_API_KEY": "optional-for-ai-enhancement"
+      }
+    }
   }
 }
 ```
 
-**What You Get:**
-- Exact hex colors (no guessing)
-- Precise spacing values
-- Real font families and sizes
-- Actual border radius, shadows
-- Component variants and states
+### 3. Restart Claude Desktop
 
-### ⚙️ Complete Code Generation
-
-```typescript
-const replica = await farzi.generate(analysis, tokens, {
-  framework: 'react',
-  output: './my-app'
-});
-```
-
-**Generated Structure:**
-```
-my-app/
-├── src/
-│   ├── design-system/
-│   │   ├── tokens/
-│   │   │   ├── colors.ts        # Exact values
-│   │   │   ├── spacing.ts       # Measured scale
-│   │   │   └── typography.ts    # Real fonts
-│   │   └── components/
-│   │       ├── Button.tsx       # All variants
-│   │       ├── Input.tsx        # All states
-│   │       └── Card.tsx
-│   ├── state/
-│   │   └── store.ts             # Detected pattern
-│   ├── api/
-│   │   └── client.ts            # Captured endpoints
-│   └── pages/
-│       └── Dashboard.tsx
-├── package.json                 # Detected dependencies
-└── README.md
-```
-
-### ✅ Dual Validation
-
-**Behavioral Testing:**
-```typescript
-// Test that interactions work
-await farzi.validateBehavior({
-  original: 'https://app.com',
-  replica: 'http://localhost:3000',
-  scenarios: [
-    'click button → modal opens',
-    'submit form → API called',
-    'hover → tooltip shows'
-  ]
-});
-```
-
-**Visual Validation:**
-```typescript
-// Test that it looks identical
-const similarity = await farzi.validateVisual({
-  original: originalScreenshot,
-  replica: replicaScreenshot
-});
-// → 99.7% similarity
-```
+Farzi tools will now be available to Claude.
 
 ---
 
-## Usage Examples
+## Usage
 
-### Example 1: Replicate a Feature
+Once configured, simply ask Claude:
 
-```bash
-# Understand behavior + replicate design
-farzi replicate-feature https://notion.so \
-  --feature "kanban-board" \
-  --output ./my-kanban
-
-# Farzi does:
-# 1. Analyzes drag-drop implementation
-# 2. Traces state management
-# 3. Captures visual design
-# 4. Generates working code
+```
+Clone https://linear.app to ./my-clone
 ```
 
-**Output:**
-- `KanbanBoard.tsx` - Component with drag-drop logic
-- `design-tokens.ts` - Exact colors, spacing
-- `hooks/useDragDrop.ts` - Behavioral logic
-- `README.md` - How it works
-
-### Example 2: Extract Design System
-
-```bash
-# Just the design (no behavior)
-farzi extract-design https://linear.app \
-  --output ./linear-design-system
-
-# Generates:
-# - Complete design tokens
-# - Component library
-# - Storybook stories
-# - Usage documentation
+```
+Extract the design system from https://stripe.com
 ```
 
-### Example 3: Full Application Clone
+```
+Analyze the architecture of https://github.com
+```
 
-```bash
-# Everything: behavior + design
-farzi replicate https://app.linear.app \
-  --output ./linear-clone \
-  --framework react \
-  --validate
+```
+Extract the pricing card component from https://vercel.com
+```
 
-# Farzi creates:
-# - Complete working app
-# - Pixel-perfect design
-# - Behavioral parity
-# - Test suites
+Claude will use Farzi's MCP tools automatically.
+
+---
+
+## MCP Tools
+
+Farzi exposes 5 tools via MCP:
+
+### `farzi_replicate`
+Complete application replication with code generation.
+
+```
+farzi_replicate({
+  url: "https://linear.app",
+  output: "./my-replica",
+  framework: "react",
+  validate: true,
+  similarityTarget: 99.5
+})
+```
+
+### `farzi_extract_design`
+Extract design tokens only (no code generation).
+
+```
+farzi_extract_design({
+  url: "https://stripe.com"
+})
+```
+
+### `farzi_analyze`
+Complete technical analysis (modules, state, APIs, behavior).
+
+```
+farzi_analyze({
+  url: "https://github.com"
+})
+```
+
+### `farzi_extract_component`
+Extract a single component from a page.
+
+```
+farzi_extract_component({
+  url: "https://stripe.com",
+  selector: ".pricing-card",
+  framework: "react"
+})
+```
+
+### `farzi_validate`
+Validate a replica against the original.
+
+```
+farzi_validate({
+  originalUrl: "https://linear.app",
+  replicaPath: "./my-replica",
+  similarityTarget: 99.5
+})
 ```
 
 ---
 
 ## How It Works
 
-### Stage 1: Analysis (Understanding)
+### Capture Layer
+- **Multi-DPI Screenshots**: 1x, 2x, 4x zoom for perfect detail
+- **DOM Inspection**: Computed styles from browser APIs
+- **Behavior Capture**: Event listeners, interactions, mutations
+- **Network Capture**: REST APIs, GraphQL queries, WebSockets
 
-**Behavioral:**
-```typescript
-// Capture runtime behavior
-const behavior = await farzi.captureBehavior(url, {
-  modules: true,        // JavaScript analysis
-  events: true,         // Event handlers
-  network: true,        // API calls
-  state: true          // State management
-});
+### Analysis Layer
+- **JavaScript Analyzer**: AST parsing, module graphs, component detection
+- **Pixel Color Extractor**: Exact color scanning from bitmap data
+- **Spacing Detector**: Whitespace analysis for spacing scale
+- **Vision Analyzer** (optional): Claude Vision for semantic understanding
+- **State Detector**: Redux, Zustand, Context, MobX, Jotai, Recoil
+
+### Extraction Layer
+- **Design Token Extractor**: Complete design system extraction
+- **Complete Extractor**: Orchestrates all analysis
+
+### Generation Layer
+- **Component Generator**: React/Vue/Svelte components with behavior
+- **State Generator**: State management setup for detected pattern
+- **API Generator**: Type-safe REST/GraphQL clients
+- **Project Generator**: Complete project scaffolding
+
+### Validation Layer
+- **Pixel Diff Validator**: Pixel-by-pixel comparison (99.5%+ target)
+- **Behavior Validator**: Interaction testing for behavioral parity
+
+---
+
+## What Gets Generated
+
+```
+output/
+├── src/
+│   ├── components/          # Generated UI components
+│   ├── design-system/
+│   │   ├── tokens/          # Colors, spacing, typography
+│   │   └── components/      # Design system primitives
+│   ├── store/               # State management (Redux/Zustand/etc)
+│   ├── api/                 # Type-safe API clients
+│   └── pages/               # Page components
+├── package.json             # Dependencies
+├── tailwind.config.js       # Design system config
+├── tsconfig.json            # TypeScript config
+└── vite.config.js           # Build config
 ```
 
-**Visual:**
+**Example generated code:**
+
 ```typescript
-// Capture visual design
-const visual = await farzi.captureVisual(url, {
-  screenshots: [1, 2, 4],  // Multi-DPI
-  dom: true,               // Computed styles
-  interactions: true       // States (hover, active)
-});
-```
+// src/design-system/tokens/colors.ts
+export const colors = {
+  primary: {
+    500: '#5E6AD2',  // Exact from pixel scanning
+    600: '#4C5FD5'
+  }
+};
 
-### Stage 2: Extraction (Tokens)
-
-**Design Tokens:**
-- Colors: Pixel scanning + DOM inspection
-- Spacing: Whitespace analysis + computed values
-- Typography: Font detection + size measurement
-- Components: Pattern recognition + clustering
-
-**Behavioral Patterns:**
-- State management: Redux/Zustand/Context detection
-- Event handling: Click/hover/focus patterns
-- Data flow: Props/state/API relationships
-- Routing: URL patterns and navigation
-
-### Stage 3: Generation (Code)
-
-**Components:**
-```tsx
-// Auto-generated from analysis
-export const Button = ({ variant, onClick, children }) => {
+// src/design-system/components/Button.tsx
+export const Button: React.FC<ButtonProps> = ({
+  variant = 'primary',
+  children,
+  onClick
+}) => {
   return (
     <button
       className={cn(
-        'px-6 py-3 rounded-lg transition-colors',
-        variant === 'primary' && 'bg-primary-500 hover:bg-primary-600',
-        variant === 'secondary' && 'bg-neutral-100 hover:bg-neutral-200'
+        'px-6 py-3 text-base font-medium rounded-lg',
+        variant === 'primary' && 'bg-primary-500 hover:bg-primary-600'
       )}
       onClick={onClick}
     >
@@ -328,156 +214,173 @@ export const Button = ({ variant, onClick, children }) => {
     </button>
   );
 };
-```
 
-**State Management:**
-```tsx
-// Detected pattern: Zustand
-import create from 'zustand';
+// src/store/index.ts (if Redux detected)
+export const store = configureStore({
+  reducer: {
+    items: itemsReducer
+  }
+});
 
-export const useStore = create((set) => ({
-  items: [],
-  addItem: (item) => set((state) => ({
-    items: [...state.items, item]
-  }))
-}));
-```
-
-### Stage 4: Validation (Testing)
-
-**Visual Diff:**
-```bash
-✅ Color accuracy: 100%
-✅ Spacing accuracy: 100%
-✅ Visual similarity: 99.7%
-```
-
-**Behavioral Tests:**
-```bash
-✅ Button click → modal opens
-✅ Form submit → API called
-✅ Drag → item moves
-✅ Hover → tooltip appears
+// src/api/rest.ts
+export const api = {
+  getItems: () => apiClient.get<ItemsResponse>('/api/items'),
+  createItem: (data: CreateItemRequest) =>
+    apiClient.post<Item>('/api/items', data)
+};
 ```
 
 ---
 
-## Philosophy
+## AI Optional
 
-### Complete Replication = Behavior + Design
+Farzi works **without AI** by default:
+- Pixel scanning for exact colors
+- DOM inspection for computed styles
+- JavaScript AST parsing for behavior
+- Pattern matching for state management
 
-**Not just visual cloning:**
-- ❌ Screenshot tool
-- ❌ CSS parser
-- ❌ Template generator
-
-**Not just code analysis:**
-- ❌ Only decompilation
-- ❌ Only documentation
-- ❌ Only understanding
-
-**Complete replication:**
-- ✅ Understand the behavior
-- ✅ Replicate the design
-- ✅ Generate working code
-- ✅ Validate both aspects
-
-### Truth-Based Analysis
-
-**Behavior:** Trace actual execution, not assumed logic
-**Design:** Measure rendered pixels, not declared CSS
-**Evidence:** Show proof for every finding
-**Accuracy:** 99.5%+ visual, 95%+ behavioral
+With `ANTHROPIC_API_KEY`, Farzi uses Claude Vision for:
+- Enhanced semantic understanding
+- Better component recognition
+- Improved design system inference
 
 ---
 
-## Comparison
+## Capabilities
 
-| Tool Type | Behavior Analysis | Visual Replication | Code Generation |
-|-----------|------------------|-------------------|-----------------|
-| **Reverse Engineering Tools** | ✅ Deep | ❌ Manual | ❌ No |
-| **UI Clone Tools** | ❌ No | ⚠️  Approximate | ⚠️  Templates |
-| **Farzi** | ✅ Deep | ✅ Pixel-perfect | ✅ Production-ready |
-
----
-
-## Roadmap
-
-### ✅ Phase 1: Web Foundation
-- [x] JavaScript module analysis
-- [x] Multi-DPI screenshots
-- [x] Pixel scanning
-- [x] DOM style extraction
-- [x] Design token extraction
-- [ ] Component generation
-- [ ] Behavioral testing
-
-### 🔄 Phase 2: Advanced Features
-- [ ] State management detection
-- [ ] API endpoint mapping
-- [ ] Animation extraction
-- [ ] Interaction replay
-- [ ] Multi-framework support
-
-### 📋 Phase 3: Native Apps
-- [ ] Binary analysis integration
-- [ ] Decompilation
-- [ ] Native UI replication
-- [ ] Cross-platform generation
+| Feature | Status |
+|---------|--------|
+| Multi-DPI Capture | ✅ |
+| JavaScript Analysis | ✅ |
+| State Detection | ✅ Redux, Zustand, Context, MobX, Jotai, Recoil |
+| Framework Detection | ✅ React, Vue, Svelte |
+| Design Token Extraction | ✅ |
+| Behavior Capture | ✅ |
+| Network Analysis | ✅ REST, GraphQL, WebSocket |
+| Component Generation | ✅ |
+| Project Scaffolding | ✅ |
+| Pixel-Diff Validation | ✅ |
+| Behavior Validation | ✅ |
+| Self-Contained | ✅ No external tool dependencies |
+| MCP Server | ✅ Claude Desktop compatible |
 
 ---
 
-## Installation
+## Use Cases
 
-```bash
-npm install -g farzi
+### Design System Extraction
+Extract complete design systems from existing applications:
+```
+Claude, extract the design system from https://linear.app
+```
 
-# Or from source
-git clone https://github.com/grandimam/farzi.git
-cd farzi
-npm install
-npm run build
+### Rapid Prototyping
+Clone applications to use as starting points:
+```
+Claude, clone https://excalidraw.com to ./my-drawing-app
+```
+
+### Competitive Analysis
+Understand how competitors build their UIs:
+```
+Claude, analyze the tech stack of https://notion.so
+```
+
+### Component Libraries
+Build component libraries from existing designs:
+```
+Claude, extract all buttons from https://stripe.com
+```
+
+### Migration Projects
+Convert applications to different frameworks:
+```
+Clone https://old-vue-app.com to React in ./new-react-app
 ```
 
 ---
 
-## Quick Start
+## Architecture Principles
 
-```bash
-# Replicate an entire app
-farzi replicate https://linear.app --output ./my-app
+### 1. Self-Contained
+No dependencies on external reverse engineering tools. Everything is implemented internally.
 
-# Extract just the design system
-farzi extract-design https://stripe.com/pricing
+### 2. Multi-Source Truth
+Combines multiple data sources for accuracy:
+- Pixel data (bitmap scanning)
+- DOM data (computed styles)
+- JavaScript data (AST parsing)
+- Network data (request interception)
+- (Optional) Vision data (Claude AI)
 
-# Replicate a specific feature
-farzi replicate-feature https://notion.so --feature kanban
+### 3. Behavior + Design
+Unlike screenshot-to-code tools, Farzi understands:
+- State management patterns
+- API endpoints and data flows
+- Event handlers and interactions
+- Component hierarchies and props
 
-# Analyze behavior only
-farzi analyze-behavior https://app.com --output behavior.json
+### 4. Production-Ready Output
+Generates actual working applications, not just HTML/CSS:
+- Full project structure
+- State management
+- API integration
+- Type safety
+- Build configuration
 
-# Capture visual only
-farzi capture-visual https://app.com --output design-tokens.json
-```
+---
+
+## Requirements
+
+- Node.js 18+
+- Playwright (browsers installed automatically)
+- (Optional) Anthropic API key for AI enhancement
 
 ---
 
 ## Documentation
 
-- [Architecture](./ARCHITECTURE.md) - Technical design
+- [MCP Setup Guide](./MCP_SETUP.md) - Detailed setup instructions
+- [Architecture](./ARCHITECTURE.md) - Technical deep-dive
 - [Why Farzi](./WHY_FARZI.md) - Philosophy and approach
-- [Quick Start](./QUICKSTART.md) - Get started
-- [No Vision Required](./NO_VISION_REQUIRED.md) - Works without AI
+- [Status](./STATUS.md) - Implementation status
 
 ---
 
-## Credits
+## Comparison: Farzi vs Others
 
-Built with:
-- [Playwright](https://playwright.dev/) - Browser automation
-- [Jimp](https://github.com/jimp-dev/jimp) - Image processing
-- [Sharp](https://sharp.pixelplumbing.com/) - Performance
-- [Claude Vision](https://anthropic.com) - Optional AI enhancement
+| Feature | Farzi | Screenshot-to-Code | Traditional RE |
+|---------|-------|-------------------|----------------|
+| **Visual Analysis** | ✅ Multi-DPI pixel scanning | ✅ Single screenshot | ❌ |
+| **Behavior Analysis** | ✅ JavaScript + state + APIs | ❌ | ✅ |
+| **Code Generation** | ✅ Full projects | ✅ HTML/CSS snippets | ❌ |
+| **Framework Detection** | ✅ React, Vue, Svelte | ❌ | ❌ |
+| **State Management** | ✅ All major patterns | ❌ | ❌ |
+| **API Extraction** | ✅ REST + GraphQL | ❌ | ✅ |
+| **Validation** | ✅ Pixel-diff + behavior | ❌ | ❌ |
+| **MCP Integration** | ✅ Native | ❌ | ❌ |
+| **AI Optional** | ✅ Works without AI | ❌ AI required | ✅ |
+
+Farzi is the only tool that combines behavior understanding with pixel-perfect replication.
+
+---
+
+## Limitations
+
+**Currently supports:**
+- ✅ Web applications (any URL)
+- ✅ Single-page apps
+- ✅ Server-rendered sites
+
+**Does not support:**
+- ❌ Native desktop applications
+- ❌ Mobile apps (iOS/Android)
+- ❌ Electron/Tauri apps
+- ❌ Browser extensions
+- ❌ Native binaries
+
+(Binary support planned for future releases)
 
 ---
 
@@ -487,4 +390,10 @@ MIT
 
 ---
 
-**Farzi: Complete replication. Understand how it works. Replicate how it looks.** 🎯
+## Contributing
+
+Issues and PRs welcome at https://github.com/grandimam/farzi
+
+---
+
+**Farzi: Complete application replication through MCP** 🎯
