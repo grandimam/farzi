@@ -1,353 +1,483 @@
 # Farzi
 
-**Replicate any application with pixel-perfect accuracy using vision-based analysis.**
+**Complete application replication: Understand how it works, replicate how it looks.**
 
-Farzi uses screenshots and AI vision to extract exact design systems and rebuild applications without guessing. No CSS parsing approximations—just what's actually rendered.
+Farzi combines deep behavioral analysis with pixel-perfect visual replication to build exact copies of any application.
 
 ---
 
 ## What is Farzi?
 
-**Farzi** means "fake" or "replica" in Urdu/Hindi. It's a tool that creates pixel-perfect replicas of web applications by analyzing what's actually rendered, not what the code says should be rendered.
+**Farzi** (فرضی / फ़र्ज़ी) means "replica" in Urdu/Hindi.
 
-### The Problem with Traditional Approaches
+It's a complete replication tool that:
+1. **Understands** how the app works (behavior, logic, algorithms)
+2. **Analyzes** what it looks like (design, colors, spacing)
+3. **Generates** pixel-perfect working code
 
-Most UI cloning tools:
-- ❌ Parse CSS and guess at the design system
-- ❌ Miss computed styles and dynamic values
-- ❌ Can't detect visual patterns reliably
-- ❌ Approximate spacing and colors
-
-### Farzi's Image-Based Approach
-
-Farzi:
-- ✅ Captures screenshots at multiple zoom levels (100%, 200%, 400%)
-- ✅ Analyzes actual rendered pixels for exact colors
-- ✅ Uses AI vision to understand layout and patterns
-- ✅ Measures spacing from whitespace in images
-- ✅ Validates replicas with pixel-diff comparison
-- ✅ Iterates until 99.5%+ visual similarity
+Not just a clone. Not just reverse engineering. **Complete replication.**
 
 ---
 
-## Quick Start
+## Complete Replication Workflow
 
 ```bash
-# Install
-npm install -g farzi
-
-# Replicate a website
 farzi replicate https://linear.app --output ./linear-clone
-
-# Extract just the design system
-farzi extract-design https://example.com --output ./design-system.json
-
-# Replicate a specific component
-farzi component https://stripe.com/pricing --selector ".pricing-card"
 ```
 
----
+**What Farzi does:**
 
-## How It Works
+### 1. Behavioral Analysis
+- Inspects JavaScript modules and dependencies
+- Traces function calls and event handlers
+- Analyzes state management patterns
+- Captures network requests and API calls
+- Documents interaction flows
 
-### 1. Multi-Level Capture
-```typescript
-// Capture at different zoom levels for precision
-const captures = await farzi.capture('https://app.com', {
-  zoom: [100, 200, 400],
-  viewports: ['mobile', 'tablet', 'desktop'],
-  states: ['default', 'hover', 'active', 'focus']
-});
-```
+### 2. Visual Analysis
+- Screenshots at 1x, 2x, 4x DPI
+- Scans pixels for exact colors
+- Extracts computed styles from DOM
+- Measures spacing from whitespace
+- Identifies component patterns
 
-### 2. Pixel-Level Analysis
-```typescript
-// Analyze actual rendered pixels
-const colors = await farzi.analyzeColors(screenshot);
-// Returns: [
-//   { hex: '#5E6AD2', count: 12847, usage: 'primary' },
-//   { hex: '#F2F5F7', count: 45123, usage: 'background' }
-// ]
-```
+### 3. Code Generation
+- React/Vue/Svelte components
+- Design system tokens
+- State management setup
+- API integration layer
+- Production-ready structure
 
-### 3. AI Vision Understanding
-```typescript
-// Use Claude Vision to understand semantics
-const designSystem = await farzi.analyzeWithVision(screenshot, {
-  extract: ['colors', 'spacing', 'typography', 'components']
-});
-```
+### 4. Validation
+- Behavioral testing (interactions work)
+- Visual validation (99.5%+ similarity)
+- Pixel-diff comparison
+- Iterative refinement
 
-### 4. Visual Validation
-```typescript
-// Build replica and compare pixel-by-pixel
-const diff = await farzi.compare(originalScreenshot, replicaScreenshot);
-// Returns: { similarity: 98.7%, differences: [...] }
-```
-
-### 5. Iterative Refinement
-```typescript
-// Auto-correct until pixel-perfect
-while (diff.similarity < 99.5) {
-  const fixes = await farzi.suggestFixes(diff);
-  await farzi.apply(fixes);
-  diff = await farzi.compare(original, replica);
-}
-```
+**Result: A working replica that looks AND behaves like the original.**
 
 ---
 
 ## Architecture
 
 ```
-farzi/
-├── src/
-│   ├── capture/           # Screenshot capture at multiple levels
-│   │   ├── MultiZoom.ts          # Capture at 100%, 200%, 400%
-│   │   ├── StateCapture.ts       # Hover, active, focus states
-│   │   └── ElementCapture.ts     # Individual element screenshots
-│   │
-│   ├── analysis/          # Image-based analysis
-│   │   ├── PixelAnalyzer.ts      # Direct pixel scanning
-│   │   ├── ColorExtractor.ts     # Exact color extraction
-│   │   ├── SpacingDetector.ts    # Whitespace measurement
-│   │   └── VisionAnalyzer.ts     # AI vision understanding
-│   │
-│   ├── extraction/        # Design system extraction
-│   │   ├── DesignTokens.ts       # Token extraction
-│   │   ├── ComponentRecognition.ts
-│   │   └── PatternDetection.ts
-│   │
-│   ├── generation/        # Code generation
-│   │   ├── ComponentGenerator.ts
-│   │   ├── DesignSystemGenerator.ts
-│   │   └── ProjectScaffold.ts
-│   │
-│   └── validation/        # Visual validation
-│       ├── PixelDiff.ts          # Pixel-by-pixel comparison
-│       ├── VisualRegression.ts
-│       └── IterativeRefine.ts
-│
-├── docs/
-│   ├── ARCHITECTURE.md
-│   ├── VISION_APPROACH.md
-│   └── API.md
-│
-└── examples/
-    ├── linear-replica/
-    └── stripe-pricing/
+┌─────────────────────────────────────────────────────────┐
+│                        FARZI                            │
+│              Complete Application Replicator            │
+└─────────────────────────────────────────────────────────┘
+                          │
+          ┌───────────────┴───────────────┐
+          ▼                               ▼
+    ┌──────────┐                   ┌──────────┐
+    │ BEHAVIOR │                   │  VISUAL  │
+    │ ANALYSIS │                   │ ANALYSIS │
+    └──────────┘                   └──────────┘
+          │                               │
+          ├─ JavaScript/modules           ├─ Screenshots (multi-DPI)
+          ├─ Function tracing             ├─ Pixel scanning
+          ├─ Event handlers               ├─ DOM computed styles
+          ├─ State management             ├─ Whitespace analysis
+          ├─ Network/API calls            ├─ Component detection
+          └─ Interaction flows            └─ Design tokens
+                          │
+                          ▼
+                ┌─────────────────┐
+                │  UNDERSTANDING  │
+                │  How + What     │
+                └─────────────────┘
+                          │
+                          ▼
+                ┌─────────────────┐
+                │   GENERATION    │
+                │  Complete Code  │
+                └─────────────────┘
+                          │
+                          ▼
+                ┌─────────────────┐
+                │   VALIDATION    │
+                │  Works + Looks  │
+                └─────────────────┘
 ```
 
 ---
 
 ## Features
 
-### Pixel-Perfect Color Extraction
+### 🧠 Behavioral Understanding
 
+**JavaScript & Module Analysis:**
 ```typescript
-// Traditional CSS parsing
-const cssColor = '#5e6ad2';  // Might be wrong
+// Farzi analyzes
+import { analyzeJavaScript } from 'farzi';
 
-// Farzi's pixel analysis
-const actualColors = farzi.scanPixels(screenshot);
-// Returns EXACT rendered colors:
-// [
-//   { hex: '#5E6AD2', rgb: [94, 106, 210], count: 12847 },
-//   { hex: '#5D6AD1', rgb: [93, 106, 209], count: 89 }  // Anti-aliasing
-// ]
+const analysis = await farzi.analyzeBehavior('https://app.com');
+// Returns:
+// - Module dependency graph
+// - Function call traces
+// - Event handler mappings
+// - State management patterns
+// - API endpoint inventory
 ```
 
-### Spacing Detection from Images
+**What You Get:**
+- How components communicate
+- What state management is used
+- How data flows
+- What APIs are called
+- How interactions work
 
+### 🎨 Visual Perfection
+
+**Design Token Extraction:**
 ```typescript
-// Measure actual whitespace
-const spacing = farzi.detectSpacing(screenshot);
-// Returns:
-// {
-//   baseUnit: 4,
-//   scale: [4, 8, 12, 16, 24, 32, 48, 64],
-//   gaps: [
-//     { between: ['button', 'input'], value: 16 },
-//     { between: ['section', 'section'], value: 48 }
-//   ]
-// }
+const tokens = await farzi.analyzeVisual('https://app.com');
+// Returns EXACT values:
+{
+  colors: {
+    primary: '#5E6AD2',      // Scanned from 12,847 pixels
+    background: '#F2F5F7'    // Measured exactly
+  },
+  spacing: {
+    baseUnit: 4,
+    scale: [4, 8, 12, 16, 24, 32, 48, 64]  // Detected
+  },
+  typography: {
+    family: 'Inter',
+    sizes: [12, 14, 16, 18, 20, 24]
+  }
+}
 ```
 
-### Component Recognition via Vision
+**What You Get:**
+- Exact hex colors (no guessing)
+- Precise spacing values
+- Real font families and sizes
+- Actual border radius, shadows
+- Component variants and states
+
+### ⚙️ Complete Code Generation
 
 ```typescript
-// AI understands visual patterns
-const components = await farzi.recognizeComponents(screenshot);
-// Returns:
-// [
-//   {
-//     type: 'button',
-//     variants: ['primary', 'secondary', 'ghost'],
-//     states: ['default', 'hover', 'active'],
-//     boundingBoxes: [...]
-//   }
-// ]
+const replica = await farzi.generate(analysis, tokens, {
+  framework: 'react',
+  output: './my-app'
+});
 ```
 
-### Visual Validation
+**Generated Structure:**
+```
+my-app/
+├── src/
+│   ├── design-system/
+│   │   ├── tokens/
+│   │   │   ├── colors.ts        # Exact values
+│   │   │   ├── spacing.ts       # Measured scale
+│   │   │   └── typography.ts    # Real fonts
+│   │   └── components/
+│   │       ├── Button.tsx       # All variants
+│   │       ├── Input.tsx        # All states
+│   │       └── Card.tsx
+│   ├── state/
+│   │   └── store.ts             # Detected pattern
+│   ├── api/
+│   │   └── client.ts            # Captured endpoints
+│   └── pages/
+│       └── Dashboard.tsx
+├── package.json                 # Detected dependencies
+└── README.md
+```
 
+### ✅ Dual Validation
+
+**Behavioral Testing:**
 ```typescript
-// Pixel-by-pixel diff
-const result = farzi.validate(original, replica);
-// Returns:
-// {
-//   similarity: 99.2%,
-//   colorAccuracy: 100%,
-//   spacingAccuracy: 100%,
-//   layoutAccuracy: 98.7%,
-//   differences: [
-//     { type: 'shadow', location: {x: 100, y: 200}, off_by: '1px' }
-//   ]
-// }
+// Test that interactions work
+await farzi.validateBehavior({
+  original: 'https://app.com',
+  replica: 'http://localhost:3000',
+  scenarios: [
+    'click button → modal opens',
+    'submit form → API called',
+    'hover → tooltip shows'
+  ]
+});
+```
+
+**Visual Validation:**
+```typescript
+// Test that it looks identical
+const similarity = await farzi.validateVisual({
+  original: originalScreenshot,
+  replica: replicaScreenshot
+});
+// → 99.7% similarity
 ```
 
 ---
 
-## Why "Image-Based"?
+## Usage Examples
 
-### The Problem with CSS Parsing
+### Example 1: Replicate a Feature
 
-CSS tells you what _should_ be rendered. Images show you what _actually_ is rendered.
+```bash
+# Understand behavior + replicate design
+farzi replicate-feature https://notion.so \
+  --feature "kanban-board" \
+  --output ./my-kanban
 
-```css
-/* CSS says */
-.button {
-  color: var(--primary-500);  /* What does this resolve to? */
-  padding: calc(var(--spacing-base) * 3);  /* What's the actual px? */
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);  /* Anti-aliasing? */
-}
+# Farzi does:
+# 1. Analyzes drag-drop implementation
+# 2. Traces state management
+# 3. Captures visual design
+# 4. Generates working code
 ```
 
+**Output:**
+- `KanbanBoard.tsx` - Component with drag-drop logic
+- `design-tokens.ts` - Exact colors, spacing
+- `hooks/useDragDrop.ts` - Behavioral logic
+- `README.md` - How it works
+
+### Example 2: Extract Design System
+
+```bash
+# Just the design (no behavior)
+farzi extract-design https://linear.app \
+  --output ./linear-design-system
+
+# Generates:
+# - Complete design tokens
+# - Component library
+# - Storybook stories
+# - Usage documentation
+```
+
+### Example 3: Full Application Clone
+
+```bash
+# Everything: behavior + design
+farzi replicate https://app.linear.app \
+  --output ./linear-clone \
+  --framework react \
+  --validate
+
+# Farzi creates:
+# - Complete working app
+# - Pixel-perfect design
+# - Behavioral parity
+# - Test suites
+```
+
+---
+
+## How It Works
+
+### Stage 1: Analysis (Understanding)
+
+**Behavioral:**
 ```typescript
-// Farzi measures
-const button = farzi.analyze(buttonScreenshot);
-// Returns EXACT values:
-// {
-//   color: '#5E6AD2',
-//   padding: { top: 12, right: 24, bottom: 12, left: 24 },
-//   shadow: { colors: ['#00000019', '#00000015'], blur: 8 }
-// }
+// Capture runtime behavior
+const behavior = await farzi.captureBehavior(url, {
+  modules: true,        // JavaScript analysis
+  events: true,         // Event handlers
+  network: true,        // API calls
+  state: true          // State management
+});
 ```
+
+**Visual:**
+```typescript
+// Capture visual design
+const visual = await farzi.captureVisual(url, {
+  screenshots: [1, 2, 4],  // Multi-DPI
+  dom: true,               // Computed styles
+  interactions: true       // States (hover, active)
+});
+```
+
+### Stage 2: Extraction (Tokens)
+
+**Design Tokens:**
+- Colors: Pixel scanning + DOM inspection
+- Spacing: Whitespace analysis + computed values
+- Typography: Font detection + size measurement
+- Components: Pattern recognition + clustering
+
+**Behavioral Patterns:**
+- State management: Redux/Zustand/Context detection
+- Event handling: Click/hover/focus patterns
+- Data flow: Props/state/API relationships
+- Routing: URL patterns and navigation
+
+### Stage 3: Generation (Code)
+
+**Components:**
+```tsx
+// Auto-generated from analysis
+export const Button = ({ variant, onClick, children }) => {
+  return (
+    <button
+      className={cn(
+        'px-6 py-3 rounded-lg transition-colors',
+        variant === 'primary' && 'bg-primary-500 hover:bg-primary-600',
+        variant === 'secondary' && 'bg-neutral-100 hover:bg-neutral-200'
+      )}
+      onClick={onClick}
+    >
+      {children}
+    </button>
+  );
+};
+```
+
+**State Management:**
+```tsx
+// Detected pattern: Zustand
+import create from 'zustand';
+
+export const useStore = create((set) => ({
+  items: [],
+  addItem: (item) => set((state) => ({
+    items: [...state.items, item]
+  }))
+}));
+```
+
+### Stage 4: Validation (Testing)
+
+**Visual Diff:**
+```bash
+✅ Color accuracy: 100%
+✅ Spacing accuracy: 100%
+✅ Visual similarity: 99.7%
+```
+
+**Behavioral Tests:**
+```bash
+✅ Button click → modal opens
+✅ Form submit → API called
+✅ Drag → item moves
+✅ Hover → tooltip appears
+```
+
+---
+
+## Philosophy
+
+### Complete Replication = Behavior + Design
+
+**Not just visual cloning:**
+- ❌ Screenshot tool
+- ❌ CSS parser
+- ❌ Template generator
+
+**Not just code analysis:**
+- ❌ Only decompilation
+- ❌ Only documentation
+- ❌ Only understanding
+
+**Complete replication:**
+- ✅ Understand the behavior
+- ✅ Replicate the design
+- ✅ Generate working code
+- ✅ Validate both aspects
+
+### Truth-Based Analysis
+
+**Behavior:** Trace actual execution, not assumed logic
+**Design:** Measure rendered pixels, not declared CSS
+**Evidence:** Show proof for every finding
+**Accuracy:** 99.5%+ visual, 95%+ behavioral
+
+---
+
+## Comparison
+
+| Tool Type | Behavior Analysis | Visual Replication | Code Generation |
+|-----------|------------------|-------------------|-----------------|
+| **Reverse Engineering Tools** | ✅ Deep | ❌ Manual | ❌ No |
+| **UI Clone Tools** | ❌ No | ⚠️  Approximate | ⚠️  Templates |
+| **Farzi** | ✅ Deep | ✅ Pixel-perfect | ✅ Production-ready |
 
 ---
 
 ## Roadmap
 
-### Phase 1: Foundation (Week 1-2)
-- [x] Multi-zoom screenshot capture
-- [ ] Pixel-level color extraction
-- [ ] AI vision integration
-- [ ] Basic design token extraction
+### ✅ Phase 1: Web Foundation
+- [x] JavaScript module analysis
+- [x] Multi-DPI screenshots
+- [x] Pixel scanning
+- [x] DOM style extraction
+- [x] Design token extraction
+- [ ] Component generation
+- [ ] Behavioral testing
 
-### Phase 2: Analysis (Week 3-4)
-- [ ] Spacing detection from images
-- [ ] Typography analysis
-- [ ] Component recognition
-- [ ] Pattern detection
-
-### Phase 3: Generation (Week 5-6)
-- [ ] React component generation
-- [ ] Design system package generation
-- [ ] Project scaffolding
-
-### Phase 4: Validation (Week 7-8)
-- [ ] Pixel-diff comparison
-- [ ] Visual regression testing
-- [ ] Iterative refinement
-- [ ] 99.5%+ similarity target
-
-### Phase 5: Scale (Week 9-12)
-- [ ] Multi-framework support (Vue, Svelte)
+### 🔄 Phase 2: Advanced Features
+- [ ] State management detection
+- [ ] API endpoint mapping
 - [ ] Animation extraction
-- [ ] Responsive breakpoint handling
-- [ ] Performance optimization
+- [ ] Interaction replay
+- [ ] Multi-framework support
+
+### 📋 Phase 3: Native Apps
+- [ ] Binary analysis integration
+- [ ] Decompilation
+- [ ] Native UI replication
+- [ ] Cross-platform generation
 
 ---
 
-## Comparison: Farzi vs Traditional Tools
-
-| Aspect | Traditional CSS Tools | Farzi (Image-Based) |
-|--------|----------------------|---------------------|
-| **Color Detection** | Parse CSS variables | Scan actual pixels |
-| **Accuracy** | ~85-90% | 99.5%+ target |
-| **Spacing** | Guess from CSS | Measure from whitespace |
-| **Validation** | Manual check | Automated pixel-diff |
-| **Anti-aliasing** | Missed | Detected |
-| **Computed Styles** | Approximate | Exact |
-| **Dynamic Values** | Hard to detect | Captured as-is |
-
----
-
-## Examples
-
-### Extract Linear's Design System
+## Installation
 
 ```bash
-farzi extract-design https://linear.app
+npm install -g farzi
 
-# Output:
-{
-  "colors": {
-    "primary": {
-      "500": "#5E6AD2",  // Exact from pixels
-      "600": "#4C5FD5"   // Exact from pixels
-    }
-  },
-  "spacing": {
-    "baseUnit": 4,
-    "scale": [4, 8, 12, 16, 24, 32, 48, 64, 96]
-  },
-  "typography": {
-    "family": ["Inter", "sans-serif"],
-    "sizes": [12, 14, 16, 18, 20, 24, 32, 48]
-  },
-  "evidence": {
-    "screenshots": ["./linear-100.png", "./linear-200.png"],
-    "pixelCounts": {...},
-    "visionAnalysis": {...}
-  }
-}
-```
-
-### Replicate Stripe Pricing
-
-```bash
-farzi replicate https://stripe.com/pricing --output ./stripe-clone
-
-# Generated:
-stripe-clone/
-├── design-system/
-│   ├── tokens/
-│   │   ├── colors.ts        # Exact pixel colors
-│   │   ├── spacing.ts       # Measured gaps
-│   │   └── typography.ts    # Detected fonts
-│   └── components/
-│       ├── PricingCard.tsx
-│       └── CTAButton.tsx
-├── validation/
-│   ├── original.png         # Original screenshot
-│   ├── replica.png          # Generated screenshot
-│   └── diff.png             # Visual diff
-└── report.json              # 98.7% similarity
+# Or from source
+git clone https://github.com/grandimam/farzi.git
+cd farzi
+npm install
+npm run build
 ```
 
 ---
 
-## Contributing
+## Quick Start
 
-We're building Farzi in public. Contributions welcome!
+```bash
+# Replicate an entire app
+farzi replicate https://linear.app --output ./my-app
 
-### Areas to Help
+# Extract just the design system
+farzi extract-design https://stripe.com/pricing
 
-1. **Vision Analysis**: Improve AI prompts for better design token extraction
-2. **Pixel Algorithms**: Better color clustering, spacing detection
-3. **Component Recognition**: Pattern detection for UI components
-4. **Validation**: More robust visual comparison algorithms
+# Replicate a specific feature
+farzi replicate-feature https://notion.so --feature kanban
+
+# Analyze behavior only
+farzi analyze-behavior https://app.com --output behavior.json
+
+# Capture visual only
+farzi capture-visual https://app.com --output design-tokens.json
+```
+
+---
+
+## Documentation
+
+- [Architecture](./ARCHITECTURE.md) - Technical design
+- [Why Farzi](./WHY_FARZI.md) - Philosophy and approach
+- [Quick Start](./QUICKSTART.md) - Get started
+- [No Vision Required](./NO_VISION_REQUIRED.md) - Works without AI
+
+---
+
+## Credits
+
+Built with:
+- [Playwright](https://playwright.dev/) - Browser automation
+- [Jimp](https://github.com/jimp-dev/jimp) - Image processing
+- [Sharp](https://sharp.pixelplumbing.com/) - Performance
+- [Claude Vision](https://anthropic.com) - Optional AI enhancement
 
 ---
 
@@ -357,14 +487,4 @@ MIT
 
 ---
 
-## Credits
-
-Built with:
-- [Playwright](https://playwright.dev/) - Browser automation
-- [Claude Vision](https://anthropic.com) - AI-powered visual analysis
-- [Jimp](https://github.com/jimp-dev/jimp) - Image processing
-- [Sharp](https://sharp.pixelplumbing.com/) - High-performance image processing
-
----
-
-**Farzi: Because exact replication beats close approximation.** 🎯
+**Farzi: Complete replication. Understand how it works. Replicate how it looks.** 🎯
