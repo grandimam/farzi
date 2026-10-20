@@ -8,7 +8,7 @@
  * - WebSocket connections
  */
 
-import type { Page, Route, Request, Response } from 'playwright';
+import type { Page, Route, Request, APIResponse } from 'playwright';
 
 export interface APIEndpoint {
   url: string;
@@ -46,7 +46,7 @@ export interface NetworkMap {
 }
 
 export class NetworkCapture {
-  private requests: Array<{ request: Request; response?: Response }> = [];
+  private requests: Array<{ request: Request; response?: APIResponse }> = [];
 
   /**
    * Capture all network activity
@@ -134,7 +134,7 @@ export class NetworkCapture {
   /**
    * Extract GraphQL query
    */
-  private async extractGraphQL(request: Request, response?: Response): Promise<GraphQLQuery | null> {
+  private async extractGraphQL(request: Request, response?: APIResponse): Promise<GraphQLQuery | null> {
     const body = request.postData();
     if (!body) return null;
 
@@ -156,7 +156,7 @@ export class NetworkCapture {
   /**
    * Extract API endpoint info
    */
-  private async extractEndpoint(request: Request, response?: Response): Promise<APIEndpoint> {
+  private async extractEndpoint(request: Request, response?: APIResponse): Promise<APIEndpoint> {
     const url = new URL(request.url());
     const headers: Record<string, string> = {};
 

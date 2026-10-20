@@ -197,13 +197,23 @@ export class Farzi {
     url: string,
     selector: string
   ): Promise<{ code: string; tokens: DesignTokens }> {
+    const browser = await this.capture['browser'];
+    if (!browser) throw new Error('Browser not initialized');
+
+    const page = await browser.newPage({
+      viewport: { width: 1920, height: 1080 }
+    });
+    await page.goto(url, { waitUntil: 'networkidle' });
+
     const captures = await this.capture.captureElement(url, selector);
-    const tokens = await this.tokenExtractor.extract(captures);
-    const code = await this.componentGenerator.generateComponent(
+    const tokens = await this.tokenExtractor.extract(captures, page);
+    const generated = await this.componentGenerator.generateComponent(
       tokens.components[0],
       tokens
     );
 
-    return { code, tokens };
+    await page.close();
+
+    return { code: generated.code, tokens };
   }
 }

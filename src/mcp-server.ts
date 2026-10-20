@@ -13,7 +13,7 @@ import {
   Tool,
 } from '@modelcontextprotocol/sdk/types.js';
 
-import { Farzi } from './Farzi.js';
+import { Farzi } from './Farzi';
 import * as path from 'path';
 import * as fs from 'fs/promises';
 
@@ -239,7 +239,6 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
                     moduleCount: analysis.modules.modules.size,
                     componentCount: Array.from(analysis.modules.modules.values())
                       .reduce((sum, m) => sum + m.components.length, 0),
-                    entryPoints: analysis.modules.entryPoints,
                   },
                   state: {
                     type: analysis.state.type,
@@ -248,7 +247,7 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
                   network: {
                     endpointCount: analysis.network.endpoints.length,
                     endpoints: analysis.network.endpoints,
-                    graphqlSchemas: analysis.network.graphqlSchemas,
+                    graphqlQueries: analysis.network.graphql,
                   },
                   behavior: {
                     eventListenerCount: analysis.behavior.eventListeners.length,

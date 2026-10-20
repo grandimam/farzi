@@ -37,7 +37,7 @@ export class DOMStyleCapture {
 
       elements.forEach((element, index) => {
         // Skip hidden elements
-        if (element.offsetParent === null) return;
+        if ((element as HTMLElement).offsetParent === null) return;
 
         const computed = window.getComputedStyle(element);
         const selector = this.generateSelector(element, index);
@@ -98,7 +98,7 @@ export class DOMStyleCapture {
       const colors = new Map<string, number>();
 
       elements.forEach(element => {
-        if (element.offsetParent === null) return;
+        if ((element as HTMLElement).offsetParent === null) return;
 
         const computed = window.getComputedStyle(element);
 
@@ -134,7 +134,7 @@ export class DOMStyleCapture {
       const spacings = new Set<number>();
 
       elements.forEach(element => {
-        if (element.offsetParent === null) return;
+        if ((element as HTMLElement).offsetParent === null) return;
 
         const computed = window.getComputedStyle(element);
 
@@ -184,7 +184,7 @@ export class DOMStyleCapture {
       const lineHeights = new Set<number>();
 
       elements.forEach(element => {
-        if (element.offsetParent === null) return;
+        if ((element as HTMLElement).offsetParent === null) return;
 
         const computed = window.getComputedStyle(element);
 

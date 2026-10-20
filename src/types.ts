@@ -2,6 +2,8 @@
  * Core types for Farzi
  */
 
+import type { Buffer } from 'node:buffer';
+
 export interface CaptureSet {
   standard: {
     fullPage?: Buffer;
@@ -100,6 +102,7 @@ export interface DesignTokens {
   components: Component[];
   evidence?: {
     pixel?: any;
+    dom?: any;
     vision?: any;
     screenshots?: CaptureSet;
   };
