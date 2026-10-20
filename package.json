@@ -27,10 +27,11 @@
   "license": "MIT",
   "dependencies": {
     "@anthropic-ai/sdk": "^0.32.1",
-    "playwright": "^1.49.1",
-    "jimp": "^0.22.12",
-    "color-diff": "^1.0.1",
-    "commander": "^12.1.0"
+    "commander": "^12.1.0",
+    "jimp": "^0.22.12"
+  },
+  "peerDependencies": {
+    "rea-agents": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^22.10.2",
