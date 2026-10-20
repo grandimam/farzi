@@ -147,5 +147,5 @@ export interface ValidationReport {
   spacingAccuracy: number;
   layoutAccuracy: number;
   passed: boolean;
-  details: ComparisonResult;
+  details: any;
 }

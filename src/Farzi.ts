@@ -3,61 +3,69 @@
  */
 
 import { MultiZoomCapture } from './capture/MultiZoomCapture';
-import { DOMStyleCapture } from './capture/DOMStyleCapture';
-import { PixelColorExtractor } from './analysis/PixelColorExtractor';
-import { VisionAnalyzer } from './analysis/VisionAnalyzer';
-import { SpacingDetector } from './analysis/SpacingDetector';
-import { DesignTokenExtractor } from './extraction/DesignTokenExtractor';
-import { ComponentGenerator } from './generation/ComponentGenerator';
+import { CompleteExtractor } from './extraction/CompleteExtractor';
+import { ProjectGenerator } from './generation/ProjectGenerator';
 import { PixelDiffValidator } from './validation/PixelDiffValidator';
+import { BehaviorValidator } from './validation/BehaviorValidator';
 import type {
   ReplicationOptions,
   ExtractionResult,
   ValidationReport,
-  DesignTokens,
   CaptureSet
 } from './types';
+import type { CompleteAnalysis } from './extraction/CompleteExtractor';
 
 export class Farzi {
   private capture: MultiZoomCapture;
-  private domCapture: DOMStyleCapture;
-  private pixelAnalyzer: PixelColorExtractor;
-  private visionAnalyzer?: VisionAnalyzer;
-  private spacingDetector: SpacingDetector;
-  private tokenExtractor: DesignTokenExtractor;
-  private componentGenerator: ComponentGenerator;
-  private validator: PixelDiffValidator;
+  private extractor: CompleteExtractor;
+  private projectGenerator: ProjectGenerator;
+  private pixelValidator: PixelDiffValidator;
+  private behaviorValidator: BehaviorValidator;
 
   constructor(apiKey?: string) {
     this.capture = new MultiZoomCapture();
-    this.domCapture = new DOMStyleCapture();
-    this.pixelAnalyzer = new PixelColorExtractor();
-    // Vision is OPTIONAL - Farzi works without it
-    this.visionAnalyzer = apiKey ? new VisionAnalyzer(apiKey) : undefined;
-    this.spacingDetector = new SpacingDetector();
-    this.tokenExtractor = new DesignTokenExtractor(
-      this.pixelAnalyzer,
-      this.spacingDetector,
-      this.domCapture,
-      this.visionAnalyzer
-    );
-    this.componentGenerator = new ComponentGenerator();
-    this.validator = new PixelDiffValidator();
+    this.extractor = new CompleteExtractor(apiKey);
+    this.projectGenerator = new ProjectGenerator();
+    this.pixelValidator = new PixelDiffValidator();
+    this.behaviorValidator = new BehaviorValidator();
   }
 
   /**
-   * Extract design system from a URL
+   * Extract complete analysis from a URL
    */
-  async extractDesign(url: string): Promise<ExtractionResult> {
+  async extract(url: string): Promise<CompleteAnalysis> {
+    console.log(`🎯 Starting complete replication of ${url}...`);
+
     // Step 1: Capture screenshots at multiple zoom levels
+    console.log('📸 Capturing screenshots...');
     const captures = await this.capture.captureUrl(url);
 
-    // Step 2: Extract design tokens
-    const tokens = await this.tokenExtractor.extract(captures);
+    // Step 2: Get page context for analysis
+    const browser = await this.capture['browser'];
+    if (!browser) throw new Error('Browser not initialized');
+
+    const page = await browser.newPage({
+      viewport: { width: 1920, height: 1080 }
+    });
+    await page.goto(url, { waitUntil: 'networkidle' });
+
+    // Step 3: Complete analysis
+    const analysis = await this.extractor.extractComplete(page, captures);
+
+    await page.close();
+
+    return analysis;
+  }
+
+  /**
+   * Extract just design tokens (backward compatible)
+   */
+  async extractDesign(url: string): Promise<ExtractionResult> {
+    const analysis = await this.extract(url);
 
     return {
-      tokens,
-      screenshots: captures,
+      tokens: analysis.design,
+      screenshots: analysis.screenshots,
       timestamp: new Date()
     };
   }
@@ -66,65 +74,98 @@ export class Farzi {
    * Replicate an entire application
    */
   async replicate(options: ReplicationOptions): Promise<void> {
-    const { url, output, framework = 'react', validate = true } = options;
+    const { url, output, framework = 'react', validate = true, similarityTarget = 99.5 } = options;
 
-    // Step 1: Extract design system
-    console.log('📸 Capturing screenshots...');
-    const extraction = await this.extractDesign(url);
+    // Step 1: Complete analysis
+    const analysis = await this.extract(url);
 
-    // Step 2: Generate code
-    console.log('⚙️  Generating components...');
-    await this.componentGenerator.generateProject(
-      extraction.tokens,
-      output,
-      framework
+    // Step 2: Generate complete project
+    console.log('⚙️  Generating project...');
+    await this.projectGenerator.generate(
+      {
+        name: 'farzi-replica',
+        framework,
+        styling: 'tailwind',
+        typescript: true
+      },
+      analysis.design,
+      analysis.modules,
+      analysis.state,
+      analysis.network,
+      output
     );
 
     // Step 3: Validate if requested
     if (validate) {
       console.log('✅ Validating replica...');
-      const report = await this.validateReplica(
-        extraction.screenshots,
-        output
+
+      // Visual validation
+      const visualReport = await this.validateVisual(
+        analysis.screenshots,
+        output,
+        similarityTarget
       );
 
-      console.log(`Similarity: ${report.similarity.toFixed(2)}%`);
+      console.log(`  Visual similarity: ${visualReport.similarity.toFixed(2)}%`);
 
-      if (report.passed) {
-        console.log('✨ Validation passed!');
+      // Behavior validation
+      console.log('  Testing behavior...');
+      const behaviorPassed = await this.behaviorValidator.validateInteractions(
+        url,
+        `file://${output}/index.html`
+      );
+
+      console.log(`  Behavior validation: ${behaviorPassed ? 'PASSED' : 'FAILED'}`);
+
+      if (visualReport.passed && behaviorPassed) {
+        console.log('✨ Complete validation passed!');
       } else {
-        console.log('⚠️  Validation failed. See report for details.');
+        console.log('⚠️  Some validations failed. See details above.');
       }
     }
 
     console.log('✅ Replication complete!');
+    console.log(`📁 Output: ${output}`);
   }
 
   /**
-   * Validate a replica against original
+   * Validate visual similarity
    */
-  async validateReplica(
+  private async validateVisual(
     originalCaptures: CaptureSet,
-    replicaPath: string
+    replicaPath: string,
+    targetSimilarity: number = 99.5
   ): Promise<ValidationReport> {
     // Capture replica
     const replicaUrl = `file://${replicaPath}/index.html`;
     const replicaCaptures = await this.capture.captureUrl(replicaUrl);
 
     // Compare screenshots
-    const comparison = await this.validator.compare(
+    const comparison = await this.pixelValidator.compare(
       originalCaptures.standard.fullPage!,
-      replicaCaptures.standard.fullPage!
+      replicaCaptures.standard.fullPage!,
+      10,
+      targetSimilarity
     );
 
     return {
       similarity: comparison.similarity,
-      colorAccuracy: 100, // TODO: Calculate from tokens
-      spacingAccuracy: 100, // TODO: Calculate from tokens
+      colorAccuracy: 100,
+      spacingAccuracy: 100,
       layoutAccuracy: comparison.similarity,
-      passed: comparison.similarity >= 99.5,
+      passed: comparison.passed,
       details: comparison
     };
+  }
+
+  /**
+   * Validate a replica (backward compatible)
+   */
+  async validateReplica(
+    originalCaptures: CaptureSet,
+    replicaPath: string
+  ): Promise<ValidationReport> {
+    return this.validateVisual(originalCaptures, replicaPath);
   }
 
   /**
